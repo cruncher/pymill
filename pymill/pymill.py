@@ -455,6 +455,21 @@ class Pymill(object):
             a dict with a member "data" which is an array of dicts, each representing a transaction
         """
         return self._api_call("https://api.paymill.com/v2/transactions/", return_type=Transaction)
+    
+    def update_transaction(self, transaction_id, description=None):
+        """Updates the description of a transaction.
+
+        :Parameters:
+         - `transaction_id` - ID of the transaction
+         - `description` - A description of the transaction
+
+        :Returns:
+            a dict with a member "data" which is a dict representing a transaction
+        """
+        parameters = dict_without_none(description=unicode(description))
+        if len(parameters) == 0:
+            return None
+        return self._api_call("https://api.paymill.com/v2.1/transactions/" + str(transaction_id), parameters, method="PUT", return_type=Transaction)
 
     def refund(self, transaction_id, amount, description=None):
         """Refunds an already performed transaction.

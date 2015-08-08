@@ -774,6 +774,15 @@ class Pymill(object):
         return self._api_call("https://api.paymill.com/v2/subscriptions/" + str(subscription_id), method="DELETE",
                               return_type=Subscription)
 
+    def pause_subscription(self, subscription_id):
+        """Pause a subscription
+
+        :Parameters:
+         - `subscription_id` - ID of the subscription
+        """
+        return self._api_call("https://api.paymill.com/v2.1/subscriptions/" + str(subscription_id), {'pause': 'true'},
+                              method="PUT", return_type=Subscription)
+
     def get_subscriptions(self):
         """List all stored subscriptions.
 
@@ -892,12 +901,12 @@ if __name__ == "__main__":
     # print repr(client)
 
     # charge debit card
-    #transaction1 = p.transact(amount=300, code="86055500", account="1234512345", holder="Max Mustermann", description="debittest")
-    #print repr(transaction1)
+    # transaction1 = p.transact(amount=300, code="86055500", account="1234512345", holder="Max Mustermann", description="debittest")
+    # print repr(transaction1)
 
     # charge credit card
-    #transaction2 = p.transact(amount=300, payment=p.get_cards()[0], description="pymilltest")
-    #print repr(transaction2)
+    # transaction2 = p.transact(amount=300, payment=p.get_cards()[0], description="pymilltest")
+    # print repr(transaction2)
 
     # subscribe client to offer
     #client1 = p.new_client("max@figo.me")

@@ -738,7 +738,7 @@ class Pymill(object):
         return self._api_call("https://api.paymill.com/v2/subscriptions/" + str(subscription_id),
                               return_type=Subscription)
 
-    def update_subscription(self, subscription_id, offer):
+    def update_subscription(self, subscription_id, offer=None, payment=None, pause=None):
         """Change the offer that a subscription is attached to
         
         :Parameters:
@@ -748,7 +748,10 @@ class Pymill(object):
         :Returns:
             a dict with a member "data" which represents the subscription
         """
-        return self._api_call("https://api.paymill.de/v2/subscriptions/" + str(subscription_id), {'offer': str(offer)},
+        parameters = dict_without_none(offer=str(offer), payment=str(payment), pause=str(pause))
+        if len(parameters) == 0:
+            return None
+        return self._api_call("https://api.paymill.com/v2.1/subscriptions/" + str(subscription_id), parameters,
                               method="PUT", return_type=Subscription)
 
     def cancel_subscription_after_interval(self, subscription_id, cancel=True):
@@ -771,17 +774,8 @@ class Pymill(object):
         :Parameters:
          - `subscription_id` - ID of the subscription
         """
-        return self._api_call("https://api.paymill.com/v2/subscriptions/" + str(subscription_id), method="DELETE",
+        return self._api_call("https://api.paymill.com/v2.1/subscriptions/" + str(subscription_id), method="DELETE",
                               return_type=Subscription)
-
-    def pause_subscription(self, subscription_id):
-        """Pause a subscription
-
-        :Parameters:
-         - `subscription_id` - ID of the subscription
-        """
-        return self._api_call("https://api.paymill.com/v2.1/subscriptions/" + str(subscription_id), {'pause': 'true'},
-                              method="PUT", return_type=Subscription)
 
     def get_subscriptions(self):
         """List all stored subscriptions.
@@ -909,8 +903,8 @@ if __name__ == "__main__":
     # print repr(transaction2)
 
     # subscribe client to offer
-    #client1 = p.new_client("max@figo.me")
-    #card1 = p.new_debit_card(code="86055500", account="1234512345", holder="Max Mustermann", client=client1)
+    # client1 = p.new_client("max@figo.me")
+    # card1 = p.new_debit_card(code="86055500", account="1234512345", holder="Max Mustermann", client=client1)
     #offer1 = p.get_offers()[0]
     #subscription = p.new_subscription(client1, offer1, card1)
     #print repr(subscription)

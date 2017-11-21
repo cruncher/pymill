@@ -914,4 +914,3 @@ if __name__ == "__main__":
     card1 = Payment(**client1.payment[0])
     offer1 = p.get_offers()[0]
     subscription = p.new_subscription(client1, offer1, card1, start_at=(datetime.utcnow() + timedelta(days=15)))
-    print repr(subscription)

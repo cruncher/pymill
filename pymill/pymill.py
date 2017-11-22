@@ -22,7 +22,7 @@ class PaymillObject(object):
             logger.debug("New/undocumented field '%s'", field_name)
 
     def __init__(self, *args, **kwargs):
-        for key, value in kwargs.iteritems():
+        for key, value in list(kwargs.items()):
             self._check_field(key)
             setattr(self, key, value)
 
@@ -272,7 +272,7 @@ def dict_without_none(**kwargs):
     """Creates a dictionary without the keys associated with None"""
 
     result = {}
-    for key, value in kwargs.iteritems():
+    for key, value in list(kwargs.items()):
         if value in (None, str(None), ''):
             continue
         result[key] = value
@@ -473,7 +473,7 @@ class Pymill(object):
         :Returns:
             a dict with a member "data" which is a dict representing a transaction
         """
-        parameters = dict_without_none(description=unicode(description))
+        parameters = dict_without_none(description=str(description))
         if len(parameters) == 0:
             return None
         return self._api_call("https://api.paymill.com/v2.1/transactions/" + str(transaction_id), parameters,
@@ -573,7 +573,7 @@ class Pymill(object):
         :Returns:
             a dict with a member "data" which is a dict representing a client.
         """
-        parameters = dict_without_none(description=unicode(description), email=str(email))
+        parameters = dict_without_none(description=str(description), email=str(email))
         if len(parameters) == 0:
             return None
         return self._api_call("https://api.paymill.com/v2/clients", parameters, return_type=Client)
@@ -600,7 +600,7 @@ class Pymill(object):
         :Returns:
             a dict with a member "data" which is a dict representing a client
         """
-        parameters = dict_without_none(description=unicode(description), email=str(email))
+        parameters = dict_without_none(description=str(description), email=str(email))
         if len(parameters) == 0:
             return None
         return self._api_call("https://api.paymill.com/v2/clients/" + str(client_id), parameters, method="PUT",
@@ -663,7 +663,7 @@ class Pymill(object):
 
         return self._api_call("https://api.paymill.com/v2/offers",
                               dict_without_none(amount=str(amount), currency=str(currency), interval=str(interval),
-                                                name=unicode(name), trial_period_days=str(trial_period_days)),
+                                                name=str(name), trial_period_days=str(trial_period_days)),
                               return_type=Offer)
 
     def get_offer(self, offer_id):
@@ -687,7 +687,7 @@ class Pymill(object):
         :Returns:
             a dict with a member "data" which is a dict representing an offer
         """
-        return self._api_call("https://api.paymill.com/v2/offers/" + str(offer_id), {'name': unicode(name)},
+        return self._api_call("https://api.paymill.com/v2/offers/" + str(offer_id), {'name': str(name)},
                               return_type=Offer)
 
     def delete_offer(self, offer_id):

@@ -68,7 +68,7 @@ class TransactionService(PaymillService):
         if preauthorization_id is None:
             raise ValueError('Preauthorization id is None!')
 
-        return self._create_transaction(dict(payment=preauthorization_id), amount, currency, description,
+        return self._create_transaction(dict(preauthorization=preauthorization_id), amount, currency, description,
                                         client_id, fee_amount, fee_payment_id, fee_currency)
 
     def _create_transaction(self, params, amount, currency, description, client_id=None, fee_amount=None,

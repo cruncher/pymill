@@ -1,1 +1,3 @@
-git+https://github.com/yalnazov/jsonobject/#egg=paymill-jsonobject
+# git+https://github.com/yalnazov/jsonobject/#egg=paymill-jsonobject
+jsonobject
+requests

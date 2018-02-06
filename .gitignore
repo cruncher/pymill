@@ -63,3 +63,5 @@ target/
 *.iml
 
 .DS_Store
+.venv
+pip-selfcheck.json

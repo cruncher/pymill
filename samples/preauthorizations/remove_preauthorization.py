@@ -1,0 +1,2 @@
+preauthorization_service = paymill_context.get_preauthorization_service()
+preauthorization_service.remove(preauthorization_with_token)

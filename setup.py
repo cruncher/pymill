@@ -21,5 +21,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    install_requires=['requests >= 2.1.0', 'paymill-jsonobject>=0.7.1beta']
+    install_requires=['requests >= 2.1.0', 'jsonobject>=0.8']  # 'paymill-jsonobject>=0.7.1beta'
 )
